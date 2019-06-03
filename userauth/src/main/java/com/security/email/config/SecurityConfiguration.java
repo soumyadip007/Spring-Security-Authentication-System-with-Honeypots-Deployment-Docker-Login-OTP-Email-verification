@@ -27,6 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		 auth.jdbcAuthentication().dataSource(securityDataSource)
 		 	.usersByUsernameQuery("select email as principal, password as credentails, enebled from user where email=?")
 			.authoritiesByUsernameQuery("select email as principal, role as role from user where email=?");
+		 
 		 System.out.println("Hello/n/n/n/n/nin");
 	
 	} 
@@ -45,9 +46,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.and()
 			.formLogin()
 			.loginPage("/showMyLoginPage")
+			.loginProcessingUrl("/abc")
 			.permitAll()
-			.and()
-			.logout().permitAll();
+			.and();
 		 
 	}
 
