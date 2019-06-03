@@ -11,7 +11,7 @@ public class LoginController {
 	public String showHome()
 	{
 		
-	return "login";
+		return "login";
 //		return "fancylogin";
 	}
 
