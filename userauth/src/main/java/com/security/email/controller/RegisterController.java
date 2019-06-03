@@ -26,14 +26,14 @@ import com.security.email.service.UserService;
 @Controller
 public class RegisterController {
 	
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	//private BCryptPasswordEncoder bCryptPasswordEncoder;
 	private UserService userService;
 	private EmailService emailService;
 	
 	@Autowired
-	public RegisterController(BCryptPasswordEncoder bCryptPasswordEncoder,
+	public RegisterController(
 			UserService userService, EmailService emailService) {
-		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		//this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 		this.userService = userService;
 		this.emailService = emailService;
 	}
