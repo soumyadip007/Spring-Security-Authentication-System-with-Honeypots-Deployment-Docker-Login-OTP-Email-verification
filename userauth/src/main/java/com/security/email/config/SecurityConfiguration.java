@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 
@@ -28,10 +29,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		  .usersByUsernameQuery(
 		   "select username,password,enabled from user where username=?")
 		  .authoritiesByUsernameQuery(
-		   "select username, authority from user where username=?");
+		   "select username, authority from user where username=?")
+		  .passwordEncoder(passwordEncoder()) ;
 		 } 
 	
-	
+	@Bean
+	public PasswordEncoder passwordEncoder(){
+	    return new PasswordEnconderTest();
+	}
+
+
+
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
@@ -79,4 +88,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return jdbcUserDetailsManager; 
 	}
 		
+}
+
+class PasswordEnconderTest implements PasswordEncoder {
+    @Override
+    public String encode(CharSequence charSequence) {
+        return charSequence.toString();
+    }
+
+    @Override
+    public boolean matches(CharSequence charSequence, String s) {
+        return charSequence.toString().equals(s);
+    }
 }
