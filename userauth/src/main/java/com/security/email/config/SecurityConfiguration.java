@@ -18,12 +18,35 @@ import org.springframework.security.provisioning.UserDetailsManager;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
+	@Autowired
+	private DataSource securityDataSource;
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+		 auth.jdbcAuthentication().dataSource(securityDataSource)
+		  .usersByUsernameQuery(
+		   "select email,password,enabled from users where username=?");
+		 
+		  		 } 
+	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			.antMatchers("/register").permitAll()
-			.antMatchers("/confirm").permitAll();
+			.antMatchers("/confirm").permitAll()
+			.antMatchers("/css/**").permitAll()
+			.antMatchers("/js/**").permitAll()
+			.antMatchers("/static/**").permitAll()
+			.antMatchers("/resources/**").permitAll()
+			.anyRequest().authenticated()
+			.and()
+			.formLogin()
+			.loginPage("/showMyLoginPage")
+			.permitAll()
+			.and()
+			.logout().permitAll();
 		 
 	}
 
@@ -39,5 +62,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	
 
-	
+	@Bean
+	public UserDetailsManager userDetailsManager() {
+		
+		JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager();
+		
+		jdbcUserDetailsManager.setDataSource(securityDataSource);
+		
+		return jdbcUserDetailsManager; 
+	}
+		
 }
