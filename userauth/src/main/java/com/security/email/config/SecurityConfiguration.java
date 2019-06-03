@@ -17,25 +17,26 @@ import org.springframework.security.provisioning.UserDetailsManager;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-
 	@Autowired
 	private DataSource securityDataSource;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		 auth.jdbcAuthentication().dataSource(securityDataSource)
-		 	.usersByUsernameQuery("select email as principal, password as credentails, enebled from user where email=?")
-			.authoritiesByUsernameQuery("select email as principal, role as role from user where email=?");
-		 
-		 System.out.println("Hello/n/n/n/n/nin");
-	
-	} 
+		// use jdbc authentication ... oh yeah!!!
+		  auth.jdbcAuthentication().dataSource(securityDataSource)
+		  .usersByUsernameQuery(
+		   "select username,password,enabled from user where username=?")
+		  .authoritiesByUsernameQuery(
+		   "select username, authority from user where username=?");
+		 } 
 	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+
 		http.authorizeRequests()
+			.antMatchers("/").hasAnyRole("ADMIN")
 			.antMatchers("/register").permitAll()
 			.antMatchers("/confirm").permitAll()
 			.antMatchers("/css/**").permitAll()
@@ -46,9 +47,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.and()
 			.formLogin()
 			.loginPage("/showMyLoginPage")
-			.loginProcessingUrl("/abc")
+			.loginProcessingUrl("/authenticateTheUser")
+			.defaultSuccessUrl("/")
 			.permitAll()
-			.and();
+		.and()
+		.logout().permitAll()
+		.and()
+		.exceptionHandling().accessDeniedPage("/register");
 		 
 	}
 

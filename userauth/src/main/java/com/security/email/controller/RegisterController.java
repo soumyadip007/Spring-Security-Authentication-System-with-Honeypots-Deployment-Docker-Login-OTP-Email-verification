@@ -152,8 +152,5 @@ public class RegisterController {
 	}
 	
 	
-	@RequestMapping("/")
-	public String x(){
-		return "success";
-	}
+	
 }

@@ -29,17 +29,17 @@
    
    
    
-    <h4>New User Registration</h4>
+    <h4>Login</h4>
 
       <form   th:action="@{/authenticateTheUser}"  method="POST">
 
 		
           
-          <input type="text" th:name="username"
+          <input type="text" name="username"
             placeholder="Email" class="form-control" required />
        
           
-          <input type="password" th:name="password"
+          <input type="password" name="password"
             placeholder="Password" class="form-control" required />
        
 
