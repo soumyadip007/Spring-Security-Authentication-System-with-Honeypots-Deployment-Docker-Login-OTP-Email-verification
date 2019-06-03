@@ -146,4 +146,9 @@ public class RegisterController {
 		return modelAndView;		
 	}
 	
+	
+	@RequestMapping(value="/r", method = RequestMethod.GET)
+	public String x(){
+		return "registerjsp.jsp";
+	}
 }
