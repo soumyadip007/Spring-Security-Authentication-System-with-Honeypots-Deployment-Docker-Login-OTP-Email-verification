@@ -147,9 +147,8 @@ public class RegisterController {
 	}
 	
 	
-	@RequestMapping("x"
-			)
+	@RequestMapping("/")
 	public String x(){
-		return "jsp/index";
+		return "success";
 	}
 }
