@@ -75,14 +75,14 @@ public class RegisterController {
 				
 		//	String appUrl = request.getScheme() + "://" + request.getServerName();
 			
-		    String appUrl ="localhose:8080";
+		    String appUrl = "localhost:8080";
 		    
 			SimpleMailMessage registrationEmail = new SimpleMailMessage();
 			registrationEmail.setTo(user.getEmail());
 			registrationEmail.setSubject("Registration Confirmation");
 			registrationEmail.setText("To confirm your e-mail address, please click the link below:\n"
 					+ appUrl + "/confirm?token=" + user.getConfirmationToken());
-			registrationEmail.setFrom("noreply@domain.com");
+			registrationEmail.setFrom("spring.email.auth@gmail.com");
 			
 			emailService.sendEmail(registrationEmail);
 			
