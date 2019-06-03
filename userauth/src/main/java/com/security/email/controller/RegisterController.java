@@ -73,8 +73,10 @@ public class RegisterController {
 		        
 		    userService.saveUser(user);
 				
-			String appUrl = request.getScheme() + "://" + request.getServerName();
+		//	String appUrl = request.getScheme() + "://" + request.getServerName();
 			
+		    String appUrl ="localhose:8080";
+		    
 			SimpleMailMessage registrationEmail = new SimpleMailMessage();
 			registrationEmail.setTo(user.getEmail());
 			registrationEmail.setSubject("Registration Confirmation");
