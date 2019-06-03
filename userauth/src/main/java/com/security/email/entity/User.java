@@ -20,7 +20,7 @@ public class User {
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "email", nullable = false, unique = true)
+	@Column(name = "username", nullable = false, unique = true)
 	@Email(message = "Please provide a valid e-mail")
 	@NotEmpty(message = "Please provide an e-mail")
 	private String email;
@@ -47,7 +47,7 @@ public class User {
 	private String gender;
 	
 	
-	@Column(name = "role")
+	@Column(name = "authority")
 	private String role;
 	
 	
