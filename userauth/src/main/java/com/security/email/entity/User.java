@@ -43,6 +43,17 @@ public class User {
 	@Column(name = "confirmation_token")
 	private String confirmationToken;
 
+	@Column(name = "gender")
+	private String gender;
+	
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
 	
 	public String getConfirmationToken() {
 		return confirmationToken;
